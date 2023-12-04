@@ -1,0 +1,42 @@
+// IN
+.setInput(in) // Filename, or a FFmpegProbeResult
+.overrideOutputFiles(true) // Override the output if it exists
+// OUT
+.addOutput(output) // Filename for the destination
+// Se copian las propeidades de audio y video
+.setFormat(formato_archivo) // Format is inferred from filename, or can be set
+.setTargetSize(250_000) // Aim for a 250KB file
+.disableSubtitle() // No subtiles
+
+// AUDIO
+.setAudioCodec("aac") // using the aac codec
+//.setAudioChannels(FFmpeg.AUDIO_MONO) // Mono audio
+//.setAudioBitRate(32_000) // at 32 kbit/s
+.setAudioChannels(FFmpeg.AUDIO_STEREO) // Stereo audio
+.setAudioBitRate(128_000) // at 128 kbit/s
+.setAudioSampleRate(FFmpeg.AUDIO_SAMPLE_44100) // at 48KHz
+
+// VIDEO
+.addExtraArgs("-profile:v", "high")
+.setVideoCodec("libx264") // Video using x264
+.setVideoPixelFormat("yuv420p")
+.setVideoResolution(640, 480) // at 640x480 resolution
+.setVideoBitRate(350_000) // 350Kbps
+.setVideoFrameRate(FFmpeg.FPS_30) // at 24 frames per second
+
+//.setStrict(FFmpegBuilder.Strict.EXPERIMENTAL) // Allow FFmpeg to use experimental specs
+// DURACIÓN
+.setDuration(duracion, TimeUnit.MINUTES)
+.done();
+
+
+
+//////////// Otros ejemplos ///////////////////
+/// AUDIO ///
+.addExtraArgs("-ar", "44100") // audio sampling frequency.
+.addExtraArgs("-ac", "2") // number of audio channels
+.addExtraArgs("-b:a", "128k") // audio bitrate to be exact 128kbit
+
+/// VIDEO ///
+.addExtraArgs("-profile:v", "high")
+.setVideoCodec("libx264") // Video using x264 (codec H.264)

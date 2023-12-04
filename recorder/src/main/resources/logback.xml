@@ -1,0 +1,66 @@
+<configuration>
+    <timestamp key="byDay" datePattern="yyyyMMdd_HHmmss"/>
+
+    <appender name="CONSOLE_DEBUG" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>%d{dd/MM/yyyy-HH:mm:ss}: %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="CONSOLE_INFO" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>%d{dd/MM/yyyy-HH:mm:ss}: %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="CONSOLE_WARN_ERROR" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <encoder>
+            <pattern>%d{dd/MM/yyyy-HH:mm:ss}: %-5level> %logger{35} -> %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_INFO" class="ch.qos.logback.core.FileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>logs/RecorderLogInfo_${byDay}.txt</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{dd/MM/yyyy-HH:mm:ss}: %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="FILE_WARN_ERROR" class="ch.qos.logback.core.FileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <file>logs/RecorderLogError_${byDay}.txt</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{dd/MM/yyyy-HH:mm:ss}: %-5level> %logger{35} -> %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE_DEBUG" />
+        <appender-ref ref="CONSOLE_INFO" />
+        <appender-ref ref="CONSOLE_WARN_ERROR" />
+        <appender-ref ref="FILE_INFO" />
+        <appender-ref ref="FILE_WARN_ERROR" />
+    </root>
+</configuration>
